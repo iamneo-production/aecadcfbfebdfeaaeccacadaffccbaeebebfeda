@@ -1,10 +1,24 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Pipe, PipeTransform } from '@angular/core';
 
-const routes: Routes = [];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+@Pipe({
+  name: 'filter'
 })
-export class AppRoutingModule { }
+export class FilterPipe implements PipeTransform {
+
+  transform(value: any,filter:string){
+    if(filter == '')
+    return value;
+
+    const foods = [];
+    for(let v of value)
+    {
+      if(v.name.includes(filter))
+      {
+        foods.push(v);
+      }
+    }
+
+    return foods;
+  }
+
+}
